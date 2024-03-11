@@ -40,7 +40,7 @@ ul {
 
 .search-btn {
   border-radius: 8px;
-  width: 75px;
+  width: 86px;
   height: 40px;
   border: none;
   background-color: #4e75ff;
@@ -155,4 +155,25 @@ ul {
     background: #fff;
     box-shadow: -24px 0 #fff, 24px 0 #4e75ff;
   }
+}
+
+.load-btn {
+  border-radius: 8px;
+  width: 120px;
+  height: 40px;
+  border: none;
+  background-color: #4e75ff;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: 0.04em;
+  color: #fff;
+  cursor: pointer;
+}
+
+.load-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
