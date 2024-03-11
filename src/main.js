@@ -42,8 +42,8 @@ loadButton.addEventListener('click', async function () {
     } catch (error) {
         console.error('Error fetching data:', error);
         iziToast.error({
-            title: 'Error',
             position: 'topRight',
+            title: 'Error',
             message: 'An error occurred. Please try again.'
         });
     }
