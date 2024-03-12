@@ -14,7 +14,8 @@ const loadButton = document.querySelector('.load-btn');
 
 let page = 1;
 let perPage = 15;
-const totalPages = Math.ceil(100 / perPage);
+// let totalHits;
+// const totalPages = Math.ceil(totalHits / perPage);
 
 loader.style.display = 'none';
 loadButton.style.display = 'none';
@@ -23,8 +24,8 @@ const lightbox = new SimpleLightbox('.gallery a');
 
 loadButton.addEventListener('click', async function () {
 
-    if (page > totalPages) {
-         loadButton.style.display = 'none';
+    if (perPage < 15) {
+        loadButton.style.display = 'none';
     return iziToast.error({
       position: "topRight",
       message: "We're sorry, there are no more posts to load"
@@ -38,7 +39,10 @@ loadButton.addEventListener('click', async function () {
         renderGallery(imgs);
         page++; 
         checkLoadButtonVisibility(imgs);
+
+        smoothScroll();
         lightbox.refresh();
+
     } catch (error) {
         console.error('Error fetching data:', error);
         iziToast.error({
@@ -51,6 +55,7 @@ loadButton.addEventListener('click', async function () {
 
 form.addEventListener('submit', async function (e) {
     e.preventDefault();
+    page = 1;
     const searchInput = searchImg.value.trim();
 
     if (searchInput === '') {
@@ -62,14 +67,16 @@ form.addEventListener('submit', async function (e) {
         return;
     }
 
-    loader.style.display = 'block';
     gallery.innerHTML = '';
 
     try {
+        loader.style.display = 'block';
+        
         const imgs = await searchImages(searchInput, page);
         renderGallery(imgs);
         searchImg.value = '';
         checkLoadButtonVisibility(imgs);
+
         lightbox.refresh();
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -91,7 +98,12 @@ function checkLoadButtonVisibility(imgs) {
     }
 }
 
-// window.scrollBy({
-//       top: scrollValue,
-//       behavior: 'smooth',
-//     });
+function smoothScroll() {
+    const cardHeight = document.querySelector('.card').getBoundingClientRect().height;
+    const scrollDistance = cardHeight * 2;
+    window.scrollBy({
+        top: scrollDistance,
+        behavior: 'smooth',
+    });
+}
+
