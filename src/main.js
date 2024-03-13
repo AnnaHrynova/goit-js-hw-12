@@ -14,8 +14,7 @@ const loadButton = document.querySelector('.load-btn');
 
 let page = 1;
 let perPage = 15;
-// let totalHits;
-// const totalPages = Math.ceil(totalHits / perPage);
+let searchInput;
 
 loader.style.display = 'none';
 loadButton.style.display = 'none';
@@ -23,6 +22,7 @@ loadButton.style.display = 'none';
 const lightbox = new SimpleLightbox('.gallery a');
 
 loadButton.addEventListener('click', async function () {
+    page += 1;
 
     if (perPage < 15) {
         loadButton.style.display = 'none';
@@ -34,11 +34,10 @@ loadButton.addEventListener('click', async function () {
   
         
     try {
-        const searchInput = searchImg.value.trim();
         const imgs = await searchImages(searchInput, page); 
         renderGallery(imgs);
-        page++; 
         checkLoadButtonVisibility(imgs);
+
 
         smoothScroll();
         lightbox.refresh();
@@ -56,7 +55,7 @@ loadButton.addEventListener('click', async function () {
 form.addEventListener('submit', async function (e) {
     e.preventDefault();
     page = 1;
-    const searchInput = searchImg.value.trim();
+    searchInput = searchImg.value.trim();
 
     if (searchInput === '') {
         iziToast.error({
